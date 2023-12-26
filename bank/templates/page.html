@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+{% for i in messages %}
+<h6><strong>{{i}}</strong></h6>
+<a href="{% url 'bankapp:Home' %}">Home</a>
+
+{% endfor %}
+{% endblock %}

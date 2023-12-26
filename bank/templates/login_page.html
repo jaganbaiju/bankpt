@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% block body %}
+<nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="{% url 'bankapp:Home' %}">
+                        <strong><span>Marvel</span> Bank</strong>
+                    </a>
+
+                    <div class="d-lg-none">
+                        <a href="sign-in.html" class="bi-person custom-icon me-3"></a>
+
+                        <a href="product-detail.html" class="bi-bag custom-icon"></a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+
+    <div class="container form">
+        <div class="container p-3 shadow">
+            <h2 class="head">registration form</h2>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <form method="post" id="personForm" data-branches-url="{% url 'ajax_load_cities' %}" class="frm">
+                    {% csrf_token %}
+<!--                    <div class="form-group shadow">-->
+<!--                        <input type="text" name="name" class="form-control" placeholder="Enter Name">-->
+<!--                    </div>-->
+<!--                    <div class="form-group shadow">-->
+<!--                        <input type="date" name="dob" class="form-control" placeholder="Date of Birth">-->
+<!--                    </div>-->
+<!--                    <div class="form-group shadow">-->
+<!--                        <input type="text" name="age" class="form-control" placeholder="Enter Age">-->
+<!--                    </div>-->
+<!--                    <div class="form-check">-->
+<!--                        <label>Select Your Gender</label><br>-->
+<!--                        <input type="radio" name="gender" class="form-check-input" value="male"><label class="form-check-label">Male</label><br>-->
+<!--                        <input type="radio" name="gender" class="form-check-input" value="female"><label class="form-check-label">female</label><br>-->
+<!--                    </div>-->
+<!--                    <div class="form-group shadow">-->
+<!--                        <input type="text" name="phone" class="form-control" placeholder="Enter Phone Number">-->
+<!--                    </div>-->
+<!--                    <div class="form-group shadow">-->
+<!--                        <input type="email" name="mail" class="form-control" placeholder="Enter E-Mail">-->
+<!--                    </div>-->
+<!--                    <div class="form-group shadow">-->
+<!--                        <input type="text" name="address" class="form-control" placeholder="Enter Address">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+                        {{ form.as_p }}
+
+<!--                    </div>-->
+<!--                    <div class="form-group shadow">-->
+<!--                        <select class="form-select p-3 shadow" name="account">-->
+<!--                            <option selected>Open this select menu</option>-->
+<!--                            <option value="savings">savings</option>-->
+<!--                            <option value="current">current</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <div class="form-check">-->
+<!--                        <label>Materials Available</label><br>-->
+<!--                        <input type="checkbox" name="material" class="form-check-input" value="Debitcard"><label class="form-check-label">Debitcard</label><br>-->
+<!--                        <input type="checkbox" name="material" class="form-check-input" value="Creditcard"><label class="form-check-label">Creditcard</label><br>-->
+<!--                        <input type="checkbox" name="material" class="form-check-input" value="Cheque"><label class="form-check-label">Cheque</label><br>-->
+<!--                    </div>-->
+                    <div class="form-group">
+
+                        <input type="submit" class="btn btn-success">&nbsp;
+
+                    </div>
+
+                </form>
+
+
+
+                <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                <script>
+                    $("#id_district").change(function () {
+                        const url = $("#personForm").attr("data-branches-url");  // get the url of the `load_cities` view
+                        const districtId = $(this).val();  // get the selected country ID from the HTML input
+
+                        $.ajax({                       // initialize an AJAX request
+                            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+                            data: {
+                                'district_id': districtId       // add the country id to the GET parameters
+                            },
+                            success: function (data) {   // `data` is the return of the `load_cities` view function
+                                $("#id_branch").html(data);  // replace the contents of the city input with the data that came from the server
+                                /*
+
+                                let html_data = '<option value="">---------</option>';
+                                data.forEach(function (branch) {
+                                    html_data += `<option value="${branch.id}">${branch.name}</option>`
+                                });
+                                console.log(html_data);
+                                $("#id_branch").html(html_data);
+
+                                */
+                            }
+                        });
+
+                    });
+                </script>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+<footer class="site-footer">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-10 me-auto mb-4">
+                        <h4 class="text-white mb-3"><a href="index.html">Marvel</a> Bank</h4>
+                        <p class="copyright-text text-muted mt-lg-5 mb-4 mb-lg-0">Copyright © 2023 <strong>Marvel Bank</strong></p>
+                        <br>
+                        <p class="copyright-text">Designed by <a href="#" target="_blank">-JB-</a></p>
+                    </div>
+
+                    <div class="col-lg-5 col-8">
+                        <h5 class="text-white mb-3">Sitemap</h5>
+
+                        <ul class="footer-menu d-flex flex-wrap">
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Branches</a></li>
+
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Privacy policy</a></li>
+
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">FAQs</a></li>
+
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-4">
+                        <h5 class="text-white mb-3">Social</h5>
+
+                        <ul class="social-icon">
+
+                            <li><a href="#" class="social-icon-link bi-youtube"></a></li>
+
+                            <li><a href="#" class="social-icon-link bi-whatsapp"></a></li>
+
+                            <li><a href="#" class="social-icon-link bi-instagram"></a></li>
+
+                            <li><a href="#" class="social-icon-link bi-skype"></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+{% endblock %}
